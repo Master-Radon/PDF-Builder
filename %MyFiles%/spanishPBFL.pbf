@@ -1,0 +1,101 @@
+<center><font color="blue"><h1> 
+Panduan PBFL v2.0
+</h1></center>
+<h3> 
+Perintah Dasar
+</h3></font>
+<p>
+Ingat: Untuk menulis sesuatu yang diformat Anda harus memasukkannya di antara tag pembuka dan tag penutup, jika Anda lupa untuk menutup tag semua teks tertulis akan dianggap dengan format tag itu
+<br><br>
+<bold>&#60;bold&gt;</bold> 
+tag untuk mulai menulis dalam huruf tebal
+<br>
+<bold>&#60;/bold&gt;</bold>
+tag untuk menutup paragraf yang dicetak tebal
+<br>
+<br>
+<br>
+<bold>&#60;mainTitle&gt;</bold> 
+tag untuk menulis judul utama halaman
+<br>
+<bold>&#60;/mainTitle&gt;</bold> 
+tag untuk menutup judul utama halaman
+<br>
+<br>
+<br>
+<bold>&#60;subTitle&gt;</bold> 
+tag untuk menulis subtitle
+<br>
+<bold>&#60;/subTitle&gt;</bold>
+tag untuk menutup subtitle
+<br>
+<br>
+<br>
+<bold>&#60;textLine&gt;</bold> 
+tag untuk membuka paragraf
+<br>
+<bold>&#60;/textLine&gt;</bold> 
+tag untuk menutup paragraf
+<br>
+<br>
+<br>
+<bold>&#60;color=</bold> 
+tag untuk mengubah warna teks (warna harus disisipkan antara '' dan tag harus ditutup setelah warna dengan tag biasa, mis:&#60;color = 'red'&gt; sekarang teks ini berwarna merah
+<br>
+<bold>&#60;/color&gt;</bold> 
+tag untuk menyelesaikan perubahan warna (setelah tag ini, teks akan kembali menjadi hitam)
+<br>
+<br>
+<br>
+<bold>&#60;table&gt;</bold> 
+awal meja
+<br>
+<bold>&#60;/table&gt;</bold> 
+ujung meja
+<br>
+<br>
+<br>
+<bold>&#60;row&gt;</bold> 
+awal baris dalam tabel
+<br>
+<bold>&#60;/row&gt;</bold> 
+akhir baris tabel
+<br>
+<br>
+<br>
+<bold>&#60;column&gt;</bold> 
+awal kolom
+<br>
+<bold>&#60;/column&gt;</bold> 
+akhir kolom
+<br>
+<br>
+<br>
+<bold>&#60;link=&gt;</bold> 
+tag untuk menyisipkan tautan
+<br>
+<bold>&#60;/link&gt;</bold> 
+tag untuk menutup tautan
+<br>
+ES: &#60;tautan = 'www.google.com'&gt;ini adalah tautan &#60;/tautan&gt; <br>
+Ini akan menyebabkan "ini adalah tautan" menjadi biru muda dan berfungsi sebagai tautan ke www.google.com
+<br>
+<br>
+<bold>&#60;EndLine&gt;</bold> 
+tag untuk diletakkan setiap kali Anda ingin membungkus
+
+<br>
+<br>
+<br>
+</p>
+<font color="blue"><h3>
+Nasihat
+</h3></font>
+<p>
+PBFL masih mencakup sedikit, jadi kami sarankan untuk mengintegrasikan PBFL dan HTML bersama-sama atau hanya menggunakan yang terakhir. Di masa depan PBFL akan memiliki pembaruan yang memungkinkan untuk mencapai keseimbangan antara kedua bahasa
+</p>
+
+
+
+
+
