@@ -134,6 +134,9 @@ class Menubar:
         convert_dropdown.add_command(label="\U0000274C Go to nonASCII.html",
                                   accelerator="F2",
                                   command=parent.nonASCIIcheck)
+        convert_dropdown.add_command(label="💻 Check PDF",
+                                  accelerator="F1",
+                                  command=parent.checkpdf)
         #END CONVERT_DROPDOWN
            
         #DECLARE ABOUT_DROPDOWN
@@ -545,65 +548,22 @@ class PyText:
             messagebox.showerror(box_title, box_message)
 
     #the heart. It create the PDF
-    def build(self, *args):
-        if namaSaya[-4:]=='.pbf': #only if is a .pbf file
-            if not self.filename:
-                self.save_file() #if not saved, save it
+     def build(self, *args):
+        convert = self.checkpdf(self,'1') #use checkpdf to create an html file to convert
+        if convert == 0:
+            config = pdfkit.configuration(wkhtmltopdf = 'wkhtmltopdf/bin/wkhtmltopdf.exe')
+            pdfkit.from_file(namaSaya+'.html',namaSaya[:len(namaSaya)-4]+'.pdf',configuration=config,options={'enable-local-file-access': None})
+            os.remove(namaSaya+'.html') #remove check file
+            self.statusbar.updateB_status(True)
             try:
-                #build temp loading file (have to be html)
-                pat = namaSaya+'.html'
-                fal = open(pat,'w')
-                testo = self.textarea.get(1.0,tk.END)
-                testo = testo.replace('<image=','<img src=')
-                testo = testo.replace('<bold>','<b>')
-                testo = testo.replace('</bold>','</b>')
-                testo = testo.replace('<mainTitle>','<h1>')
-                testo = testo.replace('</mainTitle>','</h1>')
-                testo = testo.replace('<subTitle>','<h2>')
-                testo = testo.replace('</subTitle>','</h2>')
-                testo = testo.replace('<textLine>','<p>')
-                testo = testo.replace('</textLine>','</p>')
-                testo = testo.replace('<color=','<font color=')
-                testo = testo.replace('</color>','</font>')
-                testo = testo.replace('<row>','<tr>')
-                testo = testo.replace('</row>','</tr>')
-                testo = testo.replace('<column>','<td>')
-                testo = testo.replace('</column>','</td>')
-                testo = testo.replace('<link=','<a href=')
-                testo = testo.replace('</link>','</a>')
-                testo = testo.replace('<EndLine>','<br>')
-                fal.write(testo)
-                fal.close()
-            except Exception:
-                pass
-            funo = open(namaSaya+'.html','r')
-            riga = funo.read()
-            funo.close()
-            #add watermark if not added
-            if '<br><br><br><h5><i>Created with <a href="http://masteradon.altervista.org/EN/casual/programs.html#PBF">PDF-Builder</a></i></h5>' in riga:       
-                config = pdfkit.configuration(wkhtmltopdf = 'wkhtmltopdf/bin/wkhtmltopdf.exe')
-                pdfkit.from_file(namaSaya+'.html',namaSaya[:len(namaSaya)-4]+'.pdf',configuration=config,options={'enable-local-file-access': None})
-                os.remove(namaSaya+'.html')
-            else:
-                f = open(namaSaya+'.html','a')
-                f.write('<br><br><br><h5><i>Created with <a href="http://masteradon.altervista.org/EN/casual/programs.html#PBF">PDF-Builder</a></i></h5>')
-                f.close()
-
-                #create pdf
-                config = pdfkit.configuration(wkhtmltopdf = 'wkhtmltopdf/bin/wkhtmltopdf.exe')
-                pdfkit.from_file(namaSaya+'.html',namaSaya[:len(namaSaya)-4]+'.pdf',configuration=config,options={'enable-local-file-access': None})
-                
-                os.remove(namaSaya+'.html') #delete temp file
-            self.statusbar.updateB_status(True) #update status bar
-            try:
-                os.system(namaSaya[:len(namaSaya)-4]+'.pdf') #try to open built file
-            except Exception:
+                os.system(namaSaya[:len(namaSaya)-4]+'.pdf') #try to open the PDF file
+            except Exception as e:
                 pass
         else: #show error message
             box_title = "ERROR",
-            box_message = "Can't convert a not-pbf file!"
+            box_message = "Can't convert a not-pbf file!\nRemember to save your file before convert it"
             messagebox.showerror(box_title, box_message)
-
+            
     #close the window
     def chiudi(self, *args):
         try:
@@ -646,6 +606,66 @@ class PyText:
     #take you to my website to check if there are only ascii chars (and their position). And it already write your text there
     def nonASCIIcheck(self,*args):
         wb.open("http://masteradon.altervista.org/LP/nonASCII.html?txt="+self.textarea.get(1.0,tk.END), new=0, autoraise=True)
+
+    #create an html file to check how it looks like as PDF
+    def checkpdf(self,*args):
+        if namaSaya[-4:]=='.pbf': #only if is a .pbf file
+            if not self.filename:
+                self.save_file() #if not saved, save it
+            try:
+                #converting in a html file (have to be html)
+                pat = namaSaya+'.html'
+                fal = open(pat,'w')
+                testo = self.textarea.get(1.0,tk.END)
+                testo = testo.replace('<image=','<img src=')
+                testo = testo.replace('<bold>','<b>')
+                testo = testo.replace('</bold>','</b>')
+                testo = testo.replace('<mainTitle>','<h1>')
+                testo = testo.replace('</mainTitle>','</h1>')
+                testo = testo.replace('<subTitle>','<h2>')
+                testo = testo.replace('</subTitle>','</h2>')
+                testo = testo.replace('<textLine>','<p>')
+                testo = testo.replace('</textLine>','</p>')
+                testo = testo.replace('<color=','<font color=')
+                testo = testo.replace('</color>','</font>')
+                testo = testo.replace('<row>','<tr>')
+                testo = testo.replace('</row>','</tr>')
+                testo = testo.replace('<column>','<td>')
+                testo = testo.replace('</column>','</td>')
+                testo = testo.replace('<link=','<a href=')
+                testo = testo.replace('</link>','</a>')
+                testo = testo.replace('<EndLine>','<br>')
+                fal.write(testo)
+                fal.close()
+            except Exception as e:
+                print(e)
+            funo = open(namaSaya+'.html','r')
+            riga = funo.read()
+            funo.close()
+            print(riga)
+            #add watermark if not added
+            if '<br><br><br><h5><i>Created with <a href="http://masteradon.altervista.org/EN/casual/programs.html#PBF">PDF-Builder</a></i></h5>' in riga:       
+                pass
+            else:
+                f = open(namaSaya+'.html','a')
+                f.write('<br><br><br><h5><i>Created with <a href="http://masteradon.altervista.org/EN/casual/programs.html#PBF">PDF-Builder</a></i></h5>')
+                f.close()
+            try:
+                if args[0] != None:
+                    pass                    
+            except Exception:
+                wb.open(namaSaya+'.html') #open file if its just for check
+            return 0
+        else:
+            try:
+                if args[0] != None:
+                    pass
+            #show error message
+            except Exception:
+                box_title = "ERROR",
+                box_message = "Can't check a not-pbf file!\nRemember to save your file before check"
+                messagebox.showerror(box_title, box_message)
+            return 1
 
     #search a word in the text
     def cerca(self,*args):
@@ -763,6 +783,7 @@ class PyText:
         self.textarea.bind('<Control-l>', self.cambiaLingua)
         self.textarea.bind('<Control-C>', self.cambiaColore)
         self.textarea.bind('<F2>', self.CheckASCII)
+        self.textarea.bind('<F1>', self.checkpdf)
         self.textarea.bind('<Control-d>', self.documents)
         self.textarea.bind('<Control-f>', self.finder)
         self.textarea.bind('<Control-H>', Menubar.helper)
