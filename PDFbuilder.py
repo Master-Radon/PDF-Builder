@@ -186,7 +186,7 @@ class Menubar:
     #another pop-up function
     def show_release_notes(self):
         box_title = "Release Notes",
-        box_message = "Version 2.0 - PDF-Builder"
+        box_message = "Version 2.5 - PDF-Builder"
         messagebox.showinfo(box_title, box_message)
 
     #another pop-up function
@@ -207,7 +207,7 @@ class Statusbar:
             coF = 'green'
             
         self.status = tk.StringVar() #declare a variable tkinter string
-        self.status.set("PDF-Builder - ver-2.0") #set it with this text
+        self.status.set("PDF-Builder - ver-2.5") #set it with this text
         label = tk.Label(parent.textarea, textvariable = self.status, fg="black",
                          bg="white", anchor='sw', font=font_specs) #create a label
         label.pack(side=tk.BOTTOM, fill=tk.BOTH) #insert label in the GUI
@@ -217,7 +217,7 @@ class Statusbar:
         if isinstance(value, bool):
             self.status.set("The File has been saved!") #set new status
         else:
-            self.status.set("PDF-Builder - ver-2.0 \t\t Characters: "+str(len(value))+"\t Words: "+str(len(value.split(' ')))) #set new status
+            self.status.set("PDF-Builder - ver-2.5 \t\t Characters: "+str(len(value))+"\t Words: "+str(len(value.split(' ')))) #set new status
 
     #function to update downbar status when file is builded as PDF
     def updateB_status(self, *args):
@@ -230,7 +230,7 @@ class Statusbar:
         if isinstance(args[0], bool):
             self.status.set("The File has been converted into a PDF!") #set new status
         else:
-            self.status.set("PDF-Builder - ver-2.0") #set new status
+            self.status.set("PDF-Builder - ver-2.5") #set new status
 
 #main class
 class PyText:
